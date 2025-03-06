@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://heisen13.github.io/courses.json")
+    fetch("https://heisen13.github.io/IT3R1_ADET_Lab5/courses.json")
         .then(response => response.json())
         .then(data => {
             const subjectsList = document.getElementById("subjects-list");

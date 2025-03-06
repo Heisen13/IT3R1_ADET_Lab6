@@ -8,7 +8,7 @@ body {
 .container {
     width: 80%;
     margin: auto;
-    padding-top: 60px; /* Adjusted for fixed navbar */
+    padding-top: 60px;
 }
 
 .header {
@@ -35,8 +35,6 @@ body {
 .title {
     font-size: 1.5em;
     color: gray;
-    text-decoration: none;
-    border-bottom: none;
 }
 
 img {
@@ -97,4 +95,12 @@ footer {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Subjects Taken Section */
+#subjects-list {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
 }

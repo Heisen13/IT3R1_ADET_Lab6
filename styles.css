@@ -5,6 +5,14 @@ body {
     text-align: justify;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
 .container {
     width: 80%;
     margin: auto;

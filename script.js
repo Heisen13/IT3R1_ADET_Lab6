@@ -3,32 +3,43 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             const subjectsList = document.getElementById("subjects-list");
-            subjectsList.innerHTML = "";
+            const searchBar = document.getElementById("search-bar");
             
-            const groupedCourses = {};
-            
-            data.courses.forEach(course => {
-                const key = `${course.year_level} Year - ${course.sem} Semester`;
-                if (!groupedCourses[key]) {
-                    groupedCourses[key] = [];
-                }
-                groupedCourses[key].push(course);
-            });
-            
-            Object.keys(groupedCourses).forEach(semester => {
-                const semesterDiv = document.createElement("div");
-                semesterDiv.innerHTML = `<h3>${semester}</h3>`;
+            function displaySubjects(filter = "") {
+                subjectsList.innerHTML = "";
+                const groupedCourses = {};
                 
-                const ul = document.createElement("ul");
-                groupedCourses[semester].forEach(course => {
-                    const li = document.createElement("li");
-                    li.innerHTML = `<strong>${course.code}:</strong> ${course.description} (${course.credit} credits)`;
-                    ul.appendChild(li);
+                data.courses.forEach(course => {
+                    if (course.description.toLowerCase().includes(filter.toLowerCase())) {
+                        const key = `${course.year_level} Year - ${course.sem} Semester`;
+                        if (!groupedCourses[key]) {
+                            groupedCourses[key] = [];
+                        }
+                        groupedCourses[key].push(course);
+                    }
                 });
                 
-                semesterDiv.appendChild(ul);
-                subjectsList.appendChild(semesterDiv);
+                Object.keys(groupedCourses).forEach(semester => {
+                    const semesterDiv = document.createElement("div");
+                    semesterDiv.innerHTML = `<h3>${semester}</h3>`;
+                    
+                    const ul = document.createElement("ul");
+                    groupedCourses[semester].forEach(course => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `<strong>${course.code}:</strong> ${course.description} (${course.credit} credits)`;
+                        ul.appendChild(li);
+                    });
+                    
+                    semesterDiv.appendChild(ul);
+                    subjectsList.appendChild(semesterDiv);
+                });
+            }
+            
+            searchBar.addEventListener("input", () => {
+                displaySubjects(searchBar.value);
             });
+            
+            displaySubjects();
         })
         .catch(error => {
             document.getElementById("subjects-list").textContent = "Failed to load subjects.";

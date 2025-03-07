@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const groupedCourses = {};
                 
                 data.courses.forEach(course => {
-                    if (course.description.toLowerCase().includes(filter.toLowerCase())) {
+                    const searchString = `${course.year_level} ${course.sem} ${course.code} ${course.description}`.toLowerCase();
+                    if (searchString.includes(filter.toLowerCase())) {
                         const key = `${course.year_level} Year - ${course.sem} Semester`;
                         if (!groupedCourses[key]) {
                             groupedCourses[key] = [];
